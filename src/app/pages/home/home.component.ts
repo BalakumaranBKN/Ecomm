@@ -4,11 +4,12 @@ import { IStation, ResponseModel } from '../../../dataTypes/Station';
 import { StationsService } from '../../../apiServices/stations.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

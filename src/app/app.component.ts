@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IPassenger } from '../dataTypes/Station';
 import { TrainsService } from '../apiServices/trains.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -16,11 +17,16 @@ export class AppComponent {
   registerObj: IPassenger = new IPassenger();
 
   loggedUserData: any;
-  constructor(private trainSrv: TrainsService) {
-    const localData = localStorage.getItem('trainUser');
-    if (localData != null) {
-      this.loggedUserData = JSON.parse(localData);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private trainSrv: TrainsService) {
+    if (isPlatformBrowser(this.platformId)) {
+      const localData = localStorage.getItem('trainUser');
+      if (localData!= null) {
+        this.loggedUserData = JSON.parse(localData);
+      }else {
+        console.log('Not running in the browser');
+      }
     }
+    
   }
 
   logoff() {
